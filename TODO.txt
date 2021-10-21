@@ -1,0 +1,27 @@
+CPRG 352 - Lab 7 - User Manager
+
+GET:
+	Display dashboard.jsp
+		(only the first time) load users from database into arraylist
+		display all users (Optional:that are active) with their information
+
+POST:
+	-Add user 
+		Create User object
+		Add user to user arraylist
+		Add user object to database
+		refresh dashboard
+	-Edit user
+		load user object from the user arraylist
+		change user object to new information
+		update corresponding user in database
+			-verify that all data follows DB rules (role is valid in DB etc)
+				-change user object active status to false
+				-update corresponding user in database (change active from 1 to 0)
+		refresh dashboard
+	-Delete user
+		load user object from user arraylist
+		delete user from database
+		delete user from any existing user arrayLists
+		
+		
