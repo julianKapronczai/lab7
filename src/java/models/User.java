@@ -5,6 +5,8 @@
  */
 package models;
 
+import services.RoleService;
+
 /**
  *
  * @author BritishWaldo
@@ -14,9 +16,10 @@ public class User
     private String email;
     private String firstName;
     private String lastName;
+    
     protected String password;
     
-    private int userRole;
+    private Role userRole;
     
     private boolean active;
 
@@ -27,7 +30,7 @@ public class User
         this.firstName = "-1";
         this.lastName = "-1";
         this.password = "-1";
-        this.userRole = -1;
+        this.userRole = new Role();
     }
 
     public User(String inputEmail, boolean inputActive, String inputFirstName, String inputLastName
@@ -38,7 +41,17 @@ public class User
         this.firstName = inputFirstName;
         this.lastName = inputLastName;
         this.password = inputPassword;
-        this.userRole = inputUserRole;
+        
+        try
+        {
+            this.userRole = new RoleService().get(inputUserRole);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Role fetch from database failed, assigning generic role.\nThis role will have no name assigned to it.");
+            this.userRole = new Role(inputUserRole);
+        }
     }
     
     public User(String inputEmail, int inputActive, String inputFirstName, String inputLastName
@@ -58,7 +71,17 @@ public class User
         this.firstName = inputFirstName;
         this.lastName = inputLastName;
         this.password = inputPassword;
-        this.userRole = inputUserRole;
+        
+        try
+        {
+            this.userRole = new RoleService().get(inputUserRole);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Role fetch from database failed, assigning generic role.\nThis role will have no name assigned to it.");
+            this.userRole = new Role(inputUserRole);
+        }
     }
 
     public User(String inputEmail)
@@ -68,7 +91,7 @@ public class User
         this.firstName = null;
         this.lastName = null;
         this.password = null;
-        this.userRole = -1;
+        this.userRole = new Role();
     }
 
     public void setEmail(String inputEmail)
@@ -92,6 +115,20 @@ public class User
     }
 
     public void setUserRole(int inputUserRole)
+    {
+        try
+        {
+            this.userRole = new RoleService().get(inputUserRole);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Role fetch from database failed, assigning generic role.\nThis role will have no name assigned to it.");
+            this.userRole = new Role(inputUserRole);
+        }
+    }
+    
+    public void setUserRole(Role inputUserRole)
     {
         this.userRole = inputUserRole;
     }
@@ -121,7 +158,7 @@ public class User
         return this.password;
     }
 
-    public int getUserRole()
+    public Role getUserRole()
     {
         return this.userRole;
     }
@@ -137,6 +174,6 @@ public class User
         return "User email = " + this.getEmail() + " active = " + this.isActive() 
                     + " first name = " + this.getFirstName() + " last name = " 
                     + this.getLastName() + " password = " + this.getPassword()
-                    + " role = " + this.getUserRole();
+                    + this.getUserRole();
     }
 }
