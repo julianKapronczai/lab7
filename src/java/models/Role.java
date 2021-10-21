@@ -29,7 +29,7 @@ public class Role
     public Role(int inputRoleID)
     {
         this.roleID = inputRoleID;
-        
+        this.roleName = null;
     }
 
     public int getRoleID()
