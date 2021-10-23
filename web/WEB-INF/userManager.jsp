@@ -10,6 +10,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/userManager_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>User Managment</title>
 </head>
@@ -25,45 +26,52 @@
         </tr>
         <tr>    
             <td>
-                <table id='newTable'>
-                    <tr>
-                        <td>
-                            <input type="text" name="newEmail" id="newEmail" placeholder="E-mail Address">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="newFirstName" id="newFirstName" placeholder="First Name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="newLastName" id="newLastName" placeholder="Last Name">
-                        </td>
-                    </tr>                         
-                    <tr>
-                        <td>
-                            <input type="text" name="newPassword" id="newPassword" placeholder="Password">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="newStatus" id="newStatus">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="newRole" id="newRole">
-                                <option value="Standard User">Standard User</option>
-                                <option value="Company Administrator">Company Administrator</option>
-                                <option value="System Administrator">System Administrator</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <form action="" method="post">
+                    <table id='newTable'>   
+                        <tr>
+                            <td>
+                                <input type="text" name="newEmail" id="newEmail" placeholder="E-mail Address">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="newFirstName" id="newFirstName" placeholder="First Name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="newLastName" id="newLastName" placeholder="Last Name">
+                            </td>
+                        </tr>                         
+                        <tr>
+                            <td>
+                                <input type="text" name="newPassword" id="newPassword" placeholder="Password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="newStatus" id="newStatus">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="newRole" id="newRole">
+                                    <option value="Standard User">Standard User</option>
+                                    <option value="Company Administrator">Company Administrator</option>
+                                    <option value="System Administrator">System Administrator</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Add User">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </td>
             <td>
                 <table id='displayTable'>
@@ -82,24 +90,37 @@
                                             <tr>
                                                 <form action='' method='post'>    
                                                     <td>
-                                                        <c:if test='${user.active = true}'> 
-                                                            <span class='material-icons'>check</span>
-                                                        </c:if>
-                                                        <c:if test='${user.active = false}'> 
-                                                            <span class='material-icons'>clear</span>
-                                                        </c:if>
+                                        " 
+                                        escapeXml = "false">
+                        </c:out>
+                        <c:if test='${user.isActive()}'> 
+                                                        <c:out value =  "
+                                                                            <span class='material-icons green'>check</span>
+                                                                        " 
+                                                                        escapeXml = "false">
+                                                        </c:out>
+                        </c:if>
+                        <c:if test='${!user.isActive()}'> 
+                                                        <c:out value =  "
+                                                                            <span class='material-icons red'>clear</span
+                                                                        " 
+                                                                        escapeXml = "false">
+                                                        </c:out>
+                        </c:if>
+                        <c:out value =  "                               
                                                     </td>
-                                                    <td>${user.email}</td>
-                                                    <td>${user.firstName}</td>
-                                                    <td>${user.lastName}</td>
-                                                    <td>${user.userRole.roleName}</td>
+                                                    <td>${user.getEmail()}</td>
+                                                    <td>${user.getFirstName()}</td>
+                                                    <td>${user.getLastName()}</td>
+                                                    <td>${user.getUserRole().getRoleName()}</td>
                                                     <td>
-                                                        <input type='button' name='edit' id='edit' class='material-icons' value='edit'>
+                                                        <input type='submit' name='edit' id='edit' class='material-icons' value='edit'>
                                                     </td>
                                                     <td>
-                                                        <input type='button' name='delete' id='delete' class='material-icons' value='delete'>
+                                                        <input type='submit' name='delete' id='delete' class='material-icons red' value='delete'>
                                                     </td>
-                                                    <input type='hidden' name='selectUser' value='${user.getEmail()}'>
+                                                    <input type='hidden' name='selectedUser' value='${user.getEmail()}'>
+                                                    <input type='hidden' name='action' value='displayForm'>
                                                 </form>
                                             </tr>
                                         "
@@ -109,40 +130,48 @@
                 </table>
             </td>
             <td>
-                <table id='editTable'>
-                    <tr>
-                        <td>
-                            <input type="text" name="editEmail" id="editEmail" value="${editEmail}" placeholder="E-mail Address">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="editFirstName" id="editFirstName" value="${editFirstName}" placeholder="First Name">
-                        </td> 
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="editLastName" id="editLastName" value="${editLastName}" placeholder="Last Name">
-                        </td>
-                    </tr>                         
-                    <tr>
-                        <td>
-                            <select name="editStatus" id="editStatus">
-                                <option value="Active" <c:if test="${user.isActive}"> selected </c:if>>Active</option>
-                                <option value="Inactive" <c:if test="${!user.isActive}"> selected </c:if>>Inactive</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="editRole" id="editRole">
-                                <option value="Standard User" <c:if test="${user.getRole.getRoleID == 2}"> selected </c:if>>Standard User</option>          
-                                <option value="Company Administrator" <c:if test="${user.getRole.getRoleID == 3}"> selected </c:if>>Company Administrator</option>
-                                <option value="System Administrator" <c:if test="${user.getRole.getRoleID == 1}"> selected </c:if>>System Administrator</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <form action="" method="post">
+                    <table id='editTable'>
+                        <tr>
+                            <td>
+                                <input type="text" name="editEmail" id="editEmail" value="${editEmail}" placeholder="E-mail Address">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="editFirstName" id="editFirstName" value="${editFirstName}" placeholder="First Name">
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="editLastName" id="editLastName" value="${editLastName}" placeholder="Last Name">
+                            </td>
+                        </tr>                         
+                        <tr>
+                            <td>
+                                <select name="editStatus" id="editStatus">
+                                    <option value="Active" <c:if test="${selectedUser.isActive()}"> selected </c:if>>Active</option>
+                                    <option value="Inactive" <c:if test="${!selectedUser.isActive()}"> selected </c:if>>Inactive</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="editRole" id="editRole">
+                                    <option value="Standard User" <c:if test="${selectedUser.getUserRole().getRoleID() == 2}"> selected </c:if>>Standard User</option>          
+                                    <option value="Company Administrator" <c:if test="${selectedUser.getUserRole().getRoleID() == 3}"> selected </c:if>>Company Administrator</option>
+                                    <option value="System Administrator" <c:if test="${selectedUser.getUserRole().getRoleID() == 1}"> selected </c:if>>System Administrator</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Update User">
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="action" value="updateForm">
+                </form>
             </td>
         </tr>
     </table>
