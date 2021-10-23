@@ -28,7 +28,8 @@ public class RoleDB
         PreparedStatement sqlPreparedStatement = null;
         ResultSet sqlResults = null;
         
-        String sqlStatement = "SELECT * from role";
+        String sqlStatement = "SELECT role_id, initcap(role_name) as role_name "
+                                + "from role";
         
         try 
         {
@@ -37,7 +38,18 @@ public class RoleDB
             while (sqlResults.next()) 
             {
                 int roleID = sqlResults.getInt(1);
-                String roleName = sqlResults.getString(2);
+                String originalRoleName = sqlResults.getString(2);
+                String[] splitRoleName = originalRoleName.split(" ");
+                
+                String roleName = "";
+                
+                for(String partialRoleName: splitRoleName)
+                {
+                    roleName += partialRoleName.substring(0, 1).toUpperCase() + partialRoleName.substring(1) + " ";
+                }
+                
+                roleName = roleName.trim();
+
                 Role tempRole = new Role(roleID, roleName);
                 allRoles.add(tempRole);
             }
@@ -61,7 +73,9 @@ public class RoleDB
         PreparedStatement sqlPreparedStatement = null;
         ResultSet sqlResults = null;
         
-        String sqlStatement = "SELECT * from role where role_id = ?";
+        String sqlStatement = "SELECT * "
+                                + "from role "
+                                + "where role_id = ?";
         
         try 
         {
@@ -71,7 +85,17 @@ public class RoleDB
             while (sqlResults.next()) 
             {
                 int roleID = sqlResults.getInt(1);
-                String roleName = sqlResults.getString(2);
+                String originalRoleName = sqlResults.getString(2);
+                String[] splitRoleName = originalRoleName.split(" ");
+                
+                String roleName = "";
+                
+                for(String partialRoleName: splitRoleName)
+                {
+                    roleName += partialRoleName.substring(0, 1).toUpperCase() + partialRoleName.substring(1) + " ";
+                }
+                
+                roleName = roleName.trim();
                 tempRole = new Role(roleID, roleName);
             }
         } 
@@ -92,7 +116,9 @@ public class RoleDB
         
         PreparedStatement sqlPreparedStatement = null;
         
-        String sqlStatement = "INSERT INTO role (role_id, role_name) VALUES (?, ?)";
+        String sqlStatement = "INSERT INTO role "
+                                + "(role_id, role_name) "
+                                + "VALUES (?, ?)";
         
         try 
         {
@@ -115,7 +141,9 @@ public class RoleDB
         
         PreparedStatement sqlPreparedStatement = null;
         
-        String sqlStatement = "UPDATE role SET role_name = ? where role_id = ?";
+        String sqlStatement = "UPDATE role "
+                                + "SET role_name = ? "
+                                + "where role_id = ?";
         
         try 
         {
@@ -138,7 +166,9 @@ public class RoleDB
         
         PreparedStatement sqlPreparedStatement = null;
         
-        String sqlStatement = "delete from role where role_id = ?";
+        String sqlStatement = "delete "
+                                + "from role "
+                                + "where role_id = ?";
         
         try 
         {

@@ -5,13 +5,14 @@
  */
 package models;
 
+import java.io.Serializable;
 import services.RoleService;
 
 /**
  *
  * @author BritishWaldo
  */
-public class User
+public class User implements Serializable
 {
     private String email;
     private String firstName;
@@ -164,6 +165,11 @@ public class User
     }
 
     public boolean isActive()
+    {
+        return this.active;
+    }
+    
+    public boolean getActive()
     {
         return this.active;
     }
