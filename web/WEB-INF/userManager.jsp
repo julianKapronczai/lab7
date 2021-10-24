@@ -12,40 +12,40 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/userManager_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>User Managment</title>
+    <title>User Managment Dashboard</title>
 </head>
 
 <body>
-    <h1>User Managment</h1>
+    <h1>User Managment Dashboard</h1>
 
     <table id='outerTable'>
-        <tr>    
+        <tr class="largeFont">    
             <th>Add User</th>   
             <th>Current Users</th>  
             <th>Edit User</th> 
         </tr>
         <tr>    
             <td>
-                <form action="" method="post">
+                <form action="" method="post" autocomplete="off">
                     <table id='newTable'>   
                         <tr>
                             <td>
-                                <input type="text" name="newEmail" id="newEmail" placeholder="E-mail Address">
+                                <input type="text" name="newEmail" id="newEmail" placeholder="E-mail Address" autocomplete="nope">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" name="newFirstName" id="newFirstName" placeholder="First Name">
+                                <input type="text" name="newFirstName" id="newFirstName" placeholder="First Name" autocomplete="nope">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" name="newLastName" id="newLastName" placeholder="Last Name">
+                                <input type="text" name="newLastName" id="newLastName" placeholder="Last Name" autocomplete="nope">
                             </td>
                         </tr>                         
                         <tr>
                             <td>
-                                <input type="text" name="newPassword" id="newPassword" placeholder="Password">
+                                <input type="text" name="newPassword" id="newPassword" placeholder="Password" autocomplete="nope">
                             </td>
                         </tr>
                         <tr>
@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="submit" value="Add User">
+                                <input type="submit" value="Add User" class="modifyButton">
                             </td>
                         </tr>
                     </table>
@@ -75,15 +75,15 @@
             </td>
             <td>
                 <table id='displayTable'>
-                    <tr>
-                        <th>Active status</th>
+                    <tr class="headerRow">
+                        <th>Active</th>
                         <th>E-mail Address</th>
                         <th>First Name</th>
                         
                         <th>Last Name</th>
                         <th>User Role</th>
-                        <th>Edit User</th>
-                        <th>Delete user</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     <c:forEach items="${userList}" var="user"  varStatus="userCount">
                         <c:out value=   " 
@@ -119,8 +119,7 @@
                                                     <td>
                                                         <input type='submit' name='delete' id='delete' class='material-icons red' value='delete'>
                                                     </td>
-                                                    <input type='hidden' name='selectedUser' value='${user.getEmail()}'>
-                                                    <input type='hidden' name='action' value='displayForm'>
+                                                    <input type='hidden' name='selectedUser' id='selectedUser' value='${user.getEmail()}'>
                                                 </form>
                                             </tr>
                                         "
@@ -130,21 +129,21 @@
                 </table>
             </td>
             <td>
-                <form action="" method="post">
+                <form action="" method="post" autocomplete="off">
                     <table id='editTable'>
                         <tr>
                             <td>
-                                <input type="text" name="editEmail" id="editEmail" value="${editEmail}" placeholder="E-mail Address">
+                                <input type="text" name="editEmail" id="editEmail" value="${editEmail}" placeholder="E-mail Address" autocomplete="nope">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" name="editFirstName" id="editFirstName" value="${editFirstName}" placeholder="First Name">
+                                <input type="text" name="editFirstName" id="editFirstName" value="${editFirstName}" placeholder="First Name" autocomplete="nope">
                             </td> 
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" name="editLastName" id="editLastName" value="${editLastName}" placeholder="Last Name">
+                                <input type="text" name="editLastName" id="editLastName" value="${editLastName}" placeholder="Last Name" autocomplete="nope">
                             </td>
                         </tr>                         
                         <tr>
@@ -166,9 +165,15 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="submit" value="Update User">
+                                <input type="submit" value="Reset" class="resetButton">
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Update User" class="modifyButton">
+                            </td>
+                        </tr>
+                        
                     </table>
                     <input type="hidden" name="action" value="updateForm">
                 </form>
@@ -176,5 +181,5 @@
         </tr>
     </table>
 </body>
-
+<script src="./assets/scripts/userManager_script.js"></script>
 </html>

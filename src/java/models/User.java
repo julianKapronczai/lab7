@@ -177,9 +177,9 @@ public class User implements Serializable
     @Override
     public String toString()
     {
-        return "User email = " + this.getEmail() + " active = " + this.isActive() 
-                    + " first name = " + this.getFirstName() + " last name = " 
-                    + this.getLastName() + " password = " + this.getPassword()
-                    + this.getUserRole();
+        return "User email=" + this.getEmail() + " active=" + this.isActive() 
+                    + " first name=" + this.getFirstName() + " last name=" 
+                    + this.getLastName() + " password=" + this.getPassword()
+                    + " " + this.getUserRole();
     }
 }

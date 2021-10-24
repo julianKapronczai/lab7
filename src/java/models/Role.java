@@ -57,6 +57,6 @@ public class Role implements Serializable
     @Override
     public String toString()
     {
-        return "Role ID = " + this.getRoleID() + " Role Name = " + this.getRoleName();
+        return "Role ID=" + this.getRoleID() + " Role Name=" + this.getRoleName();
     }
 }
