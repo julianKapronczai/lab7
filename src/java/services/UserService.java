@@ -33,22 +33,22 @@ public class UserService
                     , String inputPassword, int inputUserRole) throws Exception 
     {
         UserDB userConnection = new UserDB();
-        User tempUser = new User();
+        User tempUser = new User(inputEmail, inputActive, inputFirstName, inputLastName, inputPassword, inputUserRole);
         userConnection.insert(tempUser);
     }
     
-    public void update(String inputEmail, boolean inputActive, String inputFirstName, String inputLastName
-                    , String inputPassword, int inputUserRole) throws Exception 
+    public void update(String originalEmail, String inputEmail, boolean inputActive, String inputFirstName, String inputLastName
+                    , int inputUserRole) throws Exception 
     {
         UserDB userConnection = new UserDB();
-        User tempUser = new User();
-        userConnection.update(tempUser);
+        User tempUser = new User(inputEmail, inputActive, inputFirstName, inputLastName, "noPass", inputUserRole);
+        userConnection.update(originalEmail, tempUser);
     }
     
     public void delete(String inputEmail) throws Exception 
     {
         UserDB userConnection = new UserDB();
         User tempUser = new User(inputEmail);
-        userConnection.update(tempUser);
+        userConnection.delete(tempUser);
     }
 }

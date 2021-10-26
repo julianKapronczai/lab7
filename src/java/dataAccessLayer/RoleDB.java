@@ -28,7 +28,7 @@ public class RoleDB
         PreparedStatement sqlPreparedStatement = null;
         ResultSet sqlResults = null;
         
-        String sqlStatement = "SELECT role_id, initcap(role_name) as role_name "
+        String sqlStatement = "SELECT role_id, role_name "
                                 + "from role";
         
         try 

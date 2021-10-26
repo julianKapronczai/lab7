@@ -95,7 +95,7 @@ public class UserDB
         return tempUser;
     }
 
-    public void insert(User inputUser) throws Exception 
+    public void insert(User inputUser) throws Exception
     {
         ConnectionPool dBConnectionPool = ConnectionPool.getInstance();
         Connection dbConnection = dBConnectionPool.getConnection();
@@ -123,7 +123,7 @@ public class UserDB
             sqlPreparedStatement.setString(3, "" + inputUser.getFirstName());
             sqlPreparedStatement.setString(4, "" + inputUser.getLastName());
             sqlPreparedStatement.setString(5, "" + inputUser.getPassword());
-            sqlPreparedStatement.setString(6, "" + inputUser.getUserRole());
+            sqlPreparedStatement.setString(6, "" + inputUser.getUserRole().getRoleID());
             sqlPreparedStatement.executeUpdate();
         } 
         finally
@@ -133,7 +133,7 @@ public class UserDB
         }
     }
 
-    public void update(User inputUser) throws Exception 
+    public void update(String originalEmail, User inputUser) throws Exception 
     {
         ConnectionPool dBConnectionPool = ConnectionPool.getInstance();
         Connection dbConnection = dBConnectionPool.getConnection();
@@ -144,7 +144,6 @@ public class UserDB
                                 + "active = ?, "
                                 + "first_name = ?, "
                                 + "last_name = ?, "
-                                + "password = ?, "
                                 + "role = ? "
                                 + "where email = ?";
         
@@ -164,8 +163,8 @@ public class UserDB
             
             sqlPreparedStatement.setString(3, "" + inputUser.getFirstName());
             sqlPreparedStatement.setString(4, "" + inputUser.getLastName());
-            sqlPreparedStatement.setString(5, "" + inputUser.getPassword());
-            sqlPreparedStatement.setString(6, "" + inputUser.getUserRole());
+            sqlPreparedStatement.setString(5, "" + inputUser.getUserRole().getRoleID());
+            sqlPreparedStatement.setString(6, "" + originalEmail);
             sqlPreparedStatement.executeUpdate();
         } 
         finally

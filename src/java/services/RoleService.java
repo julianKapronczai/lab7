@@ -51,4 +51,21 @@ public class RoleService
         Role tempRole = new Role(inputRoleID);
         roleConnection.update(tempRole);
     }
+    
+    public int roleIDLookup(String lookupString)
+    {
+        int tempRoleID = -1;
+        
+        switch (lookupString)
+        {
+            case "System Administrator":    tempRoleID = 1;
+                                            break;
+            case "Regular User":            tempRoleID = 2;
+                                            break;
+            case "Company Administrator":   tempRoleID = 3;
+                                            break;
+        }
+        
+        return tempRoleID;
+    }
 }
