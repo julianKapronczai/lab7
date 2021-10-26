@@ -29,21 +29,7 @@ public class UserServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {   
-        HttpSession session = request.getSession();
         
-        try
-        {
-            this.userList = new UserService().getAll();
-            
-            session.setAttribute("userList", this.userList);
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/userManager.jsp").forward(request, response);
-        return;
     }
 
     @Override
