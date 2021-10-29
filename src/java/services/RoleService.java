@@ -64,6 +64,10 @@ public class RoleService
                                             break;
             case "Company Administrator":   tempRoleID = 3;
                                             break;
+            case " Alex Kapronczai":        tempRoleID = 4;
+                                            break;
+            case "Julian Hill":             tempRoleID = 5;
+                                            break;
         }
         
         return tempRoleID;
