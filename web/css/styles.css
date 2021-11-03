@@ -1,0 +1,23 @@
+body{
+    background-color: yellowgreen;
+}
+div{
+    display: inline-block;
+    color: midnightblue;
+    width: 33%;
+    height: 33%;
+}
+.container{
+    background-color: blueviolet;
+    color: midnightblue;
+    width: 33%;
+    height: 33%;
+}
+input{
+    background-color: grey;
+    color: midnightblue;
+}
+select{
+    background-color: grey;
+    color: midnightblue;
+}
